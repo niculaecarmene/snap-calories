@@ -3,7 +3,7 @@ WhatsApp webhook endpoints for receiving messages.
 """
 import logging
 from fastapi import APIRouter, Request, Response, HTTPException, BackgroundTasks
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 from app.services.whatsapp import whatsapp_service
 from app.models.message import WhatsAppWebhookPayload, ImageMessage
@@ -106,7 +106,7 @@ async def receive_webhook(
         return {"status": "error", "message": str(e)}
 
 
-def _extract_image_message(payload: WhatsAppWebhookPayload) -> ImageMessage | None:
+def _extract_image_message(payload: WhatsAppWebhookPayload) -> Optional[ImageMessage]:
     """
     Extract image message from webhook payload.
 
@@ -138,7 +138,7 @@ def _extract_image_message(payload: WhatsAppWebhookPayload) -> ImageMessage | No
     return None
 
 
-def _extract_text_sender(payload: WhatsAppWebhookPayload) -> str | None:
+def _extract_text_sender(payload: WhatsAppWebhookPayload) -> Optional[str]:
     """
     Extract sender phone number from text message.
 
