@@ -1,0 +1,246 @@
+Perfect. Let’s design this like a **real Product Manager spec** — simple, MVP-focused, no fluff.
+
+You like structured outputs, so I’ll keep it implementation-ready 👇
+
+---
+
+# 📄 Product Specification
+
+# SnapCalories – MVP v1.0
+
+---
+
+## 1. 🎯 Product Vision
+
+**SnapCalories** allows users to send a photo of their meal via WhatsApp and instantly receive an approximate nutritional breakdown including:
+
+* Calories
+* Macronutrients (Protein, Carbs, Fat)
+* Key Micronutrients (Vitamins & Minerals)
+* Portion estimate
+* Confidence score
+
+**Core Promise:**
+
+> "Know what’s on your plate in seconds."
+
+---
+
+## 2. 👤 Target Users
+
+### Primary
+
+* Health-conscious individuals
+* Busy professionals
+* Gym members
+* Weight loss users
+* Women 35–45 tracking hormones/metabolism (your core audience profile)
+
+### Secondary
+
+* Nutrition coaches
+* Personal trainers
+* Online wellness communities
+
+---
+
+## 3. 🧩 Problem Statement
+
+Users want to track food but:
+
+* Logging manually is time-consuming
+* Apps require typing/searching foods
+* Portion estimation is difficult
+* Most users quit tracking after 2–3 weeks
+
+SnapCalories removes friction:
+
+> Photo → instant analysis → zero typing.
+
+---
+
+## 4. 🛠 MVP Scope (Keep It SIMPLE)
+
+### User Flow
+
+1. User sends photo to WhatsApp bot
+2. System:
+
+   * Detects food items
+   * Estimates portion size
+   * Calculates nutrition
+3. Bot replies with formatted nutrition breakdown
+
+---
+
+## 5. 📱 Functional Requirements
+
+### 5.1 Input
+
+* Accept image (JPG, PNG)
+* Max 10MB
+* One plate per image (v1 constraint)
+
+---
+
+### 5.2 AI Processing
+
+#### Step 1 – Food Recognition
+
+* Identify visible food items
+* Detect multiple ingredients per plate
+
+#### Step 2 – Portion Estimation
+
+* Estimate grams per item
+* Use heuristics (plate size assumption, AI scaling)
+
+#### Step 3 – Nutrition Lookup
+
+* Map items to nutrition database (USDA or equivalent)
+* Calculate totals
+
+---
+
+### 5.3 Output Format (WhatsApp Message)
+
+Example reply:
+
+```
+🍽 Meal Analysis – SnapCalories
+
+Estimated Calories: 645 kcal
+
+Macros:
+Protein: 42g
+Carbohydrates: 58g
+Fat: 28g
+Fiber: 9g
+
+Vitamins:
+Vitamin A: 35% DV
+Vitamin C: 42% DV
+Vitamin B12: 60% DV
+
+Minerals:
+Iron: 22% DV
+Magnesium: 18% DV
+Potassium: 25% DV
+
+Confidence: 78%
+(This is an AI estimate.)
+```
+
+---
+
+## 6. 🔒 Non-Functional Requirements
+
+* Response time: < 8 seconds
+* GDPR compliant (EU audience)
+* Images auto-deleted after processing (optional premium save later)
+* Scalable serverless backend
+
+---
+
+## 7. 🏗 Technical Architecture (High-Level)
+
+### Components
+
+1. WhatsApp Business API
+2. Backend (FastAPI / Node.js)
+3. Image processing AI (Vision model)
+4. Nutrition database API
+5. Calculation engine
+6. Response formatter
+
+---
+
+### Suggested Stack
+
+* WhatsApp Cloud API
+* Python FastAPI
+* OpenAI Vision model (food detection)
+* USDA FoodData Central dataset
+* PostgreSQL (future history feature)
+* AWS / GCP serverless
+
+---
+
+## 8. 📊 MVP Limitations
+
+* Not medical-grade
+* No allergy detection
+* No long-term tracking (v1)
+* No personalized recommendations
+* Single meal only
+
+---
+
+## 9. 📈 Future Roadmap (Post-MVP)
+
+Phase 2:
+
+* Daily calorie tracking
+* Macro goals
+* Save meal history
+* User profile (weight, height, goals)
+
+Phase 3:
+
+* Hormonal phase-based nutrition (you would love this feature)
+* Coach dashboard
+* Subscription model
+* Weekly reports
+* WhatsApp reminders
+
+---
+
+## 10. 💰 Monetization Strategy
+
+### Free Tier
+
+* 1 scan per day
+
+### Pro (€9/month)
+
+* Unlimited scans
+* Detailed micronutrients
+* Meal history
+* Weekly report
+
+---
+
+## 11. ⚖️ Risk Assessment
+
+| Risk               | Mitigation               |
+| ------------------ | ------------------------ |
+| Portion inaccuracy | Confidence score         |
+| AI hallucination   | Nutrition DB cross-check |
+| Slow response      | Async processing         |
+| Legal liability    | Clear disclaimer         |
+
+---
+
+## 12. 📌 Success Metrics (MVP)
+
+* 70%+ users send more than 2 meals
+* Avg response time < 6 seconds
+* 30% conversion to paid within 30 days
+* Retention > 40% after 2 weeks
+
+---
+
+# 🚀 MVP Definition (Brutal Simplicity)
+
+If you want ultra-lean v0:
+
+* Only return:
+
+  * Calories
+  * Protein
+  * Carbs
+  * Fat
+* No vitamins/minerals initially
+* No accounts
+* No storage
+* Stateless processing
